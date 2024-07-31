@@ -46,39 +46,57 @@ const Timer = () => {
   };
 
   return (
-    <div>
-      <h1>Pomodoro Timer</h1>
-      <div>
-        {Object.keys(times).map((type) => (
-          <button
-            key={type}
-            onClick={() => handleTimerTypeChange(type)}
-            style={{
-              backgroundColor: timerType === type ? '#61dafb' : '#282c34',
-              color: timerType === type ? '#282c34' : '#61dafb',
-              margin: '0 5px',
-              padding: '10px 20px',
-              border: 'none',
-              cursor: 'pointer'
-            }}
-          >
-            {type}
-          </button>
-        ))}
+    <div class="app">
+      <header class="app-header">
+        <h1>Pomodoro Timer</h1>
+      </header>
+      <div class="app-body">
+        <div class="app-body-navigation">
+          <div>
+            {Object.keys(times).map((type) => (
+              <button class="timer-classes"
+                key={type}
+                onClick={() => handleTimerTypeChange(type)}
+                /*style={{
+                  backgroundColor: timerType === type ? '#61dafb' : '#282c34',
+                  color: timerType === type ? '#282c34' : '#61dafb',
+                  margin: '0 5px',
+                  padding: '10px 20px',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}*/
+              >
+                <div class="timer-name">
+                  {type}
+                </div> 
+                <div class="timer-time">
+                  {times[type] / 60}m
+                </div>
+              </button>
+            ))}
+            <div class="timer-custom-input">
+              <label htmlFor="custom-time"><span>Set custom time</span> <br></br> <span>(minutes)</span> </label>
+              <input
+                type="number"
+                id="custom-time"
+                min="1"
+                onChange={handleChangeTime}
+              />
+            </div>
+          </div>
+        </div>
+        <div class="app-body-main-content">
+          <div class="app-body-main-content-timer">
+            <h1>{formatTime(timeLeft)}</h1>
+          </div>
+          <div class="app-body-main-content-actions">
+            <button onClick={startTimer}>Start</button>
+            <button onClick={stopTimer}>Pause</button>
+            <button onClick={resetTimer}>Reset</button>
+          </div>
+        </div>
       </div>
-      <div>{formatTime(timeLeft)}</div>
-      <button onClick={startTimer}>Start</button>
-      <button onClick={stopTimer}>Stop</button>
-      <button onClick={resetTimer}>Reset</button>
-      <div>
-        <label htmlFor="custom-time">Set custom time (minutes): </label>
-        <input
-          type="number"
-          id="custom-time"
-          min="1"
-          onChange={handleChangeTime}
-        />
-      </div>
+      
     </div>
   );
 };
